@@ -22,3 +22,6 @@ This is a small Android project that fetches and displays a collection of photos
 - Uses NASA’s free photo API
 - Clean, modern Android app structure
 - Implements both required features and “nice-to-have” extras
+
+## Screenshot
+![App Screenshot](images/Screenshot.png)
