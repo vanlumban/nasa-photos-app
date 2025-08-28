@@ -1,6 +1,5 @@
 package com.vanlumban.nasaphotos.data.models
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
