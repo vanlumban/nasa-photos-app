@@ -31,7 +31,9 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "NASA_API_KEY", "\"$nasaApiKey\"")
+        // Force expose the NASA API key to the app code so the users can run the app
+        buildConfigField("String", "NASA_API_KEY", "f4OyIH2wfW4ogrdNJfQlu4gNvDM6kbgkMsdNodcz")
+//        buildConfigField("String", "NASA_API_KEY", "\"$nasaApiKey\"")
     }
 
     buildTypes {
