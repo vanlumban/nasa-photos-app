@@ -14,6 +14,6 @@ fun String.formatDate(): String {
     }
 }
 
-fun String.cleanOrDefault(default: String = "---"): String {
-    return this.trim().ifEmpty { default }
+fun String?.cleanOrDefault(default: String = "---"): String {
+    return this?.trim()?.ifEmpty { default } ?: default
 }

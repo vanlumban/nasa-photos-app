@@ -1,13 +1,15 @@
 package com.vanlumban.nasaphotos.data.models
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class NasaPhoto(
-    val date: String,
-    val title: String,
-    @SerializedName("url")
-    val imageUrl: String,
-    @SerializedName("copyright")
-    val author: String?
+    val date: String? = "",
+    val title: String? = "",
+    val explanation: String? = "",
+    val url: String? = "",
+    val copyright: String? = ""
 )
+
 

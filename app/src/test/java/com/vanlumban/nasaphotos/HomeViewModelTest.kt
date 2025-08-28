@@ -2,7 +2,7 @@ package com.vanlumban.nasaphotos
 
 import com.vanlumban.nasaphotos.data.models.NasaPhoto
 import com.vanlumban.nasaphotos.data.repository.NasaRepository
-import com.vanlumban.nasaphotos.ui.screen.HomeViewModel
+import com.vanlumban.nasaphotos.ui.screen.home.HomeViewModel
 import com.vanlumban.nasaphotos.util.UiState
 import io.mockk.coEvery
 import io.mockk.mockk

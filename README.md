@@ -24,7 +24,8 @@ This is a small Android project that fetches and displays a collection of photos
 - Implements both required features and “nice-to-have” extras
 
 ## Screenshot
-<img src="images/Screenshot.png" alt="App Screenshot" height="300"/>
+<img src="images/Home.png" alt="Home" height="500"/>
+<img src="images/Details.png" alt="Details" height="500"/>
 
 ⚠️ Note: The API key is currently exposed in this repository for demonstration purposes.  
 It will be hidden (using local.properties or environment variables) once the project is reviewed.

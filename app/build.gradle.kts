@@ -1,7 +1,22 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+}
+
+val localPropertiesFile = rootProject.file("local.properties")
+val nasaApiKey: String = if (localPropertiesFile.exists()) {
+    localPropertiesFile.reader().use { reader ->
+        reader.readLines()
+            .firstOrNull { it.startsWith("NASA_API_KEY=") }
+            ?.split("=")?.get(1)
+            ?: ""
+    }
+} else {
+    ""
 }
 
 android {
@@ -15,6 +30,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "NASA_API_KEY", "\"$nasaApiKey\"")
     }
 
     buildTypes {
@@ -35,6 +52,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -49,6 +67,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
+
+    // Json Serialization
+    implementation(libs.kotlinx.serialization.json)
 
     // Networking
     implementation(libs.retrofit)

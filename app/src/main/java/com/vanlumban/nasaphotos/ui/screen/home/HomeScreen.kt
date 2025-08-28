@@ -1,5 +1,6 @@
-package com.vanlumban.nasaphotos.ui.screen
+package com.vanlumban.nasaphotos.ui.screen.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,17 +25,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.vanlumban.nasaphotos.data.models.NasaPhoto
 import com.vanlumban.nasaphotos.ui.components.ShimmerEffect
 import com.vanlumban.nasaphotos.util.UiState
 import com.vanlumban.nasaphotos.util.cleanOrDefault
 import com.vanlumban.nasaphotos.util.formatDate
+import kotlinx.serialization.json.Json
 import org.koin.androidx.compose.koinViewModel
+import java.net.URLEncoder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel = koinViewModel()) {
     val uiState = viewModel.state.collectAsState().value
 
     PullToRefreshBox(
@@ -61,7 +65,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(uiState.data.size) { index ->
-                        PhotoCard(photo = uiState.data[index])
+                        PhotoCard(navController, photo = uiState.data[index])
                     }
                 }
             }
@@ -76,16 +80,23 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
 }
 
 @Composable
-fun PhotoCard(photo: NasaPhoto) {
+fun PhotoCard(navController: NavController, photo: NasaPhoto) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                val json = Json { encodeDefaults = true; explicitNulls = true }
+                val jsonString = json.encodeToString(NasaPhoto.serializer(), photo)
+                val encoded = URLEncoder.encode(jsonString, "UTF-8")
+                navController.navigate("details/$encoded")
+            },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             // Image
             AsyncImage(
-                model = photo.imageUrl,
+                model = photo.url,
                 contentDescription = photo.title,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -106,14 +117,14 @@ fun PhotoCard(photo: NasaPhoto) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Author: ${photo.author?.cleanOrDefault() ?: "---"}",
+                    text = "Author: ${photo.copyright?.cleanOrDefault() ?: "---"}",
                     style = MaterialTheme.typography.bodyMedium
                 )
 
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Date: ${photo.date.formatDate()}",
+                    text = "Date: ${photo.date?.formatDate() ?: "---"}",
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

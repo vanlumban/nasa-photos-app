@@ -2,7 +2,7 @@ package com.vanlumban.nasaphotos.di
 
 import com.vanlumban.nasaphotos.data.repository.NasaRepository
 import com.vanlumban.nasaphotos.data.service.NasaApiService
-import com.vanlumban.nasaphotos.ui.screen.HomeViewModel
+import com.vanlumban.nasaphotos.ui.screen.home.HomeViewModel
 import okhttp3.OkHttpClient
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

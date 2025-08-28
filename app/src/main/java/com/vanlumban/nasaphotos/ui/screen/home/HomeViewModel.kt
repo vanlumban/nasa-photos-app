@@ -1,4 +1,4 @@
-package com.vanlumban.nasaphotos.ui.screen
+package com.vanlumban.nasaphotos.ui.screen.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
