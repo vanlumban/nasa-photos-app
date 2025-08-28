@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,8 +72,17 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = koinView
             }
 
             is UiState.Error -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("Failed to load photos", color = Color.Red)
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("Failed to load photos", style = MaterialTheme.typography.titleMedium, color = Color.Red)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(onClick = { viewModel.fetchRandomPhotos() }) {
+                            Text("Try Again")
+                        }
+                    }
                 }
             }
         }
